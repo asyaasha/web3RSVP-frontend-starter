@@ -1,4 +1,5 @@
 import { Web3Storage, File, getFilesFromPath } from "web3.storage";
+import getRandomImage from "../../utils/getRandomImage";
 const { resolve } = require("path");
 
 export default async function handler(req, res) {
@@ -26,9 +27,15 @@ async function storeEventData(req, res) {
 
 async function makeFileObjects(body) {
   const buffer = Buffer.from(JSON.stringify(body));
+  let files = [];
 
-  const imageDirectory = resolve(process.cwd(), `public/images/${body.image}`);
-  const files = await getFilesFromPath(imageDirectory);
+  if (!body.image) {
+    const imageDirectory = resolve(
+      process.cwd(),
+      `public/images/${getRandomImage()}`
+    );
+    files = await getFilesFromPath(imageDirectory);
+  }
 
   files.push(new File([buffer], "data.json"));
   return files;

@@ -12,6 +12,7 @@ export default function CreateEvent() {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventTime, setEventTime] = useState("");
+  const [eventImage, setEventImage] = useState(null);
   const [maxCapacity, setMaxCapacity] = useState("");
   const [refund, setRefund] = useState("");
   const [eventLink, setEventLink] = useState("");
@@ -29,7 +30,7 @@ export default function CreateEvent() {
       name: eventName,
       description: eventDescription,
       link: eventLink,
-      image: getRandomImage(),
+      image: eventImage,
     };
 
     try {
@@ -159,6 +160,24 @@ export default function CreateEvent() {
                     required
                     value={eventName}
                     onChange={(e) => setEventName(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
+                <label
+                  htmlFor="eventimage"
+                  className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                >
+                  Event image url
+                </label>
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                  <input
+                    id="event-name"
+                    name="event-name"
+                    type="text"
+                    className="block max-w-lg w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
+                    onChange={(e) => setEventImage(e.target.value)}
                   />
                 </div>
               </div>
